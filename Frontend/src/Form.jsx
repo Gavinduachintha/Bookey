@@ -1,5 +1,6 @@
 import React from 'react';
 import {useState} from "react";
+import axios from "axios";
 import "./css/form.css"
 
 export const Form = ({onAddCard, onClose}) => {
@@ -7,13 +8,22 @@ export const Form = ({onAddCard, onClose}) => {
     const [description, setDescription] = useState('');
     const [url, setUrl] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        onAddCard({title, description, url});
-        setTitle('');
-        setDescription('');
-        setUrl('');
-        onClose();
+
+        try {
+            const response = await axios.post('http://localhost:8080/api/bookmarks', {
+                title, description, url
+            });
+            onAddCard(response.data);
+            setTitle('');
+            setDescription('');
+            setUrl('');
+            onClose();
+            console.log('Bookmark added:', response.data);
+        } catch (error) {
+            console.error("Error submitting bookmark:", error);
+        }
     };
 
     return(
