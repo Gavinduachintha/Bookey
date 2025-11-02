@@ -10,6 +10,7 @@ import org.example.bookamarkmanager.service.BookmarkService;
 import java.io.IOException;
 import java.util.List;
 
+
 @RestController
 @RequestMapping("/api")
 @SpringBootApplication
@@ -31,7 +32,11 @@ public class BookamarkManagerApplication {
 
     @PostMapping("/bookmarks")
     public ResponseEntity<WebBookmark> addBookmark(@RequestBody WebBookmark bookmark) throws IOException {
-        WebBookmark saved = bookmarkService.addBookmark(bookmark.getTitle(), bookmark.getUrl());
+        WebBookmark saved = bookmarkService.addBookmark(
+            bookmark.getTitle(), 
+            bookmark.getUrl(), 
+            bookmark.getDescription()
+        );
         return ResponseEntity.ok(saved);
     }
 }

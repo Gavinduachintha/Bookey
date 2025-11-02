@@ -20,10 +20,11 @@ public class BookmarkService {
         objectMapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 
-    public WebBookmark addBookmark(String title, String url) throws IOException {
+    public WebBookmark addBookmark(String title, String url, String description) throws IOException {
         List<WebBookmark> bookmarks = getAllBookmarks();
         int newId = bookmarks.stream().mapToInt(WebBookmark::getId).max().orElse(0) + 1;
         WebBookmark bm = new WebBookmark(newId, title, url);
+        bm.setDescription(description);
         bookmarks.add(bm);
         saveAllBookmarks(bookmarks);
         return bm;
