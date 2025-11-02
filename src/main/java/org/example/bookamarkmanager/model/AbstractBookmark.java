@@ -1,5 +1,4 @@
 package org.example.bookamarkmanager.model;
-
 public abstract class AbstractBookmark {
     private String url;
     private String title;

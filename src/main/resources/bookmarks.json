@@ -1,18 +1,64 @@
 {
-  "bookmarks" : [ {
-    "url" : "https://www.openai.com",
-    "title" : "OpenAI",
-    "id" : 1,
-    "description" : "Artificial Intelligence research and deployment company."
-  }, {
-    "url" : "https://example.com",
-    "title" : "Example Site",
-    "id" : 2,
-    "description" : null
-  }, {
-    "url" : "https://www.openai.com",
-    "title" : "OpenAI",
-    "id" : 3,
-    "description" : null
-  } ]
+  "bookmarks": [
+    {
+      "id": 1,
+      "title": "OpenAI",
+      "url": "https://www.openai.com",
+      "description": "Artificial Intelligence research and deployment company."
+    },
+    {
+      "id": 2,
+      "title": "GitHub",
+      "url": "https://github.com",
+      "description": "Platform for version control and collaborative software development."
+    },
+    {
+      "id": 3,
+      "title": "Stack Overflow",
+      "url": "https://stackoverflow.com",
+      "description": "A community for programmers to learn, share, and build their careers."
+    },
+    {
+      "id": 4,
+      "title": "MDN Web Docs",
+      "url": "https://developer.mozilla.org",
+      "description": "Resources for developers, by developers — documentation on web technologies."
+    },
+    {
+      "id": 5,
+      "title": "W3Schools",
+      "url": "https://www.w3schools.com",
+      "description": "Learn web development with tutorials and references on web languages."
+    },
+    {
+      "id": 6,
+      "title": "Spring Boot",
+      "url": "https://spring.io/projects/spring-boot",
+      "description": "Framework to build production-ready Spring applications quickly."
+    },
+    {
+      "id": 7,
+      "title": "Example Site",
+      "url": "https://example.com",
+      "description": "A simple example domain used in documentation and testing."
+    },
+    {
+      "id": 8,
+      "title": "YouTube",
+      "url": "https://www.youtube.com",
+      "description": "Video sharing platform where users can upload and watch videos."
+    },
+    {
+      "id": 9,
+      "title": "Firebase",
+      "url": "https://firebase.google.com",
+      "description": "Platform for building and managing mobile and web applications."
+    },
+    {
+      "id": 10,
+      "title": "GeeksforGeeks",
+      "url": "https://www.geeksforgeeks.org",
+      "description": "A computer science portal for tutorials, interview prep, and programming articles."
+    }
+  ]
 }

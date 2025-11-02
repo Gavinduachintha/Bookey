@@ -41,7 +41,14 @@ public class BookmarkService {
 
     private void saveAllBookmarks(List<WebBookmark> bookmarks) throws IOException {
         File file = new File(FILE_PATH);
-        file.getParentFile().mkdirs();
+        // Ensure parent directory exists; if creation fails, throw an IOException so callers know save failed.
+        File parent = file.getParentFile();
+        if (parent != null && !parent.exists()) {
+            boolean created = parent.mkdirs();
+            if (!created && !parent.exists()) {
+                throw new IOException("Failed to create directories for path: " + parent.getAbsolutePath());
+            }
+        }
         BookmarksData data = new BookmarksData();
         data.setBookmarks(bookmarks);
         objectMapper.writerWithDefaultPrettyPrinter().writeValue(file, data);

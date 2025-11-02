@@ -12,7 +12,8 @@ export const Form = ({onAddCard, onClose}) => {
         e.preventDefault();
 
         try {
-            const response = await axios.post('http://localhost:8080/api/bookmarks', {
+            // use relative path so dev-server proxy or same-origin works
+            const response = await axios.post('/api/bookmarks', {
                 title, description, url
             });
             onAddCard(response.data);
