@@ -1,25 +1,36 @@
 package org.example.bookamarkmanager.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "bookmarks")   // ✅ MongoDB collection name
 public class WebBookmark extends AbstractBookmark {
-    private int id;
+
+    @Id
+    private String id;   // ✅ MongoDB requires String ID
+
     private String description;
 
+    // ✅ Required empty constructor for MongoDB
     public WebBookmark() {
     }
 
-    public WebBookmark(int id, String title, String url) {
+    // ✅ Updated constructor (NO int id now)
+    public WebBookmark(String title, String url, String description) {
         super(title, url);
-        this.id = id;
+        this.description = description;
     }
 
-    public int getId() {
+    // ✅ MongoDB ID Getter & Setter
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {   // ✅ String, not int
         this.id = id;
     }
 
+    // ✅ Description Getter & Setter
     public String getDescription() {
         return description;
     }
@@ -28,7 +39,7 @@ public class WebBookmark extends AbstractBookmark {
         this.description = description;
     }
 
-    // Polymorphism: concrete implementation
+    // ✅ Polymorphism still works (no change needed!)
     @Override
     public String displayInfo() {
         return "WebBookmark: " + getTitle() + " (" + getUrl() + ")";
