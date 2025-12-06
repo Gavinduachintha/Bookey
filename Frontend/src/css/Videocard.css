@@ -1,0 +1,65 @@
+.video-bookmark {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 14px 16px;
+    margin-bottom: 12px;
+    border-radius: 12px;
+    background: linear-gradient(145deg, #0f172a, #020617);
+    border: 1px solid #1e293b;
+    cursor: pointer;
+    transition: all 0.25s ease;
+}
+
+.video-bookmark:hover {
+    transform: translateY(-2px) scale(1.01);
+    border-color: #38bdf8;
+    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+}
+
+/* ✅ Time Badge */
+.bookmark-time {
+    align-self: flex-start;
+    font-size: 12px;
+    font-weight: 600;
+    color: #0f172a;
+    background: #38bdf8;
+    padding: 3px 8px;
+    border-radius: 6px;
+}
+
+/* ✅ Title */
+.bookmark-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e5e7eb;
+}
+
+/* ✅ Description */
+.bookmark-description {
+    font-size: 14px;
+    line-height: 1.4;
+    color: #94a3b8;
+}
+
+/* ✅ URL */
+.bookmark-url {
+    font-size: 12px;
+    color: #38bdf8;
+    word-break: break-all;
+}
+
+/* ✅ Mobile Friendly */
+@media (max-width: 500px) {
+    .video-bookmark {
+        padding: 12px;
+    }
+
+    .bookmark-title {
+        font-size: 15px;
+    }
+
+    .bookmark-description {
+        font-size: 13px;
+    }
+}

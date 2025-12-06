@@ -5,6 +5,7 @@ import {Card} from "./Card.jsx";
 import {Form} from "./Form.jsx";
 import { CirclePlus} from 'lucide-react';
 import axios from 'axios';
+import VideoBookmark from "./VideoBookmark.jsx";
 
 function App() {
 
@@ -80,7 +81,14 @@ function App() {
               <Form onAddCard={handleAddCard} onClose={()=>setShowForm(false)}/>
           )}
         </div>
-      </div>
+        <VideoBookmark
+            title="Intro"
+            description="Introduction to the topic"
+            url="https://youtube.com"
+            time={10}
+
+        />
+        </div>
     </>
 
   )

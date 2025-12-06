@@ -16,13 +16,11 @@ public class BookmarkController {
         this.bookmarkService = bookmarkService;
     }
 
-    // ✅ GET ALL
     @GetMapping("/bookmarks")
     public List<WebBookmark> getBookmarks() {
         return bookmarkService.getAllBookmarks();
     }
 
-    // ✅ ADD
     @PostMapping("/bookmarks")
     public WebBookmark addBookmark(@RequestBody WebBookmark bookmark) {
         return bookmarkService.addBookmark(
@@ -32,7 +30,6 @@ public class BookmarkController {
         );
     }
 
-    // ✅ DELETE
     @DeleteMapping("/bookmarks/{id}")
     public void deleteBookmark(@PathVariable String id) {
         bookmarkService.deleteBookmark(id);
