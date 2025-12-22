@@ -48,6 +48,19 @@ function App() {
     setBookmarks((prev) => [newCard, ...prev]);
   };
 
+  const deleteCard = async (id) => {
+    try {
+      const response = await axios.delete(`/api/bookmarks/${id}`);
+      if (response.status === 204 || response.status === 200) {
+        setBookmarks((prev) => prev.filter((bm) => bm.id !== id));
+      } else {
+        console.error('Unexpected delete response:', response.status, response.data);
+      }
+    } catch (error) {
+      console.error("Error deleting bookmark:", error);
+    }
+  }
+
   return (
     <>
       <div className="app-container">
@@ -67,9 +80,11 @@ function App() {
             {bookmarks.map((bm) => (
               <Card
                 key={bm.id}
+                id={bm.id}
                 title={bm.title}
                 description={bm.description}
                 url={bm.url}
+                onDelete={deleteCard}
               />
             ))}
           </div>

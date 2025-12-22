@@ -24,6 +24,15 @@ public class BookmarkService {
         return bookmarkRepository.findAll();
     }
 
+    public WebBookmark updateBookmark(String id, String title, String url, String description) {
+        WebBookmark bookmark = bookmarkRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Bookmark not found"));
+        bookmark.setTitle(title);
+        bookmark.setUrl(url);
+        bookmark.setDescription(description);
+        return bookmarkRepository.save(bookmark);
+    }
+
     public void deleteBookmark(String id) {
         bookmarkRepository.deleteById(id);
     }

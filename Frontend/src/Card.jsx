@@ -15,7 +15,7 @@ const getFavicon = (pageUrl) => {
     }
 };
 
-export const Card = ({ title, description, url }) => {
+export const Card = ({id, title, description, url,onDelete }) => {
     const favicon = getFavicon(url);
 
     return (
@@ -74,6 +74,7 @@ export const Card = ({ title, description, url }) => {
                 <button
                     className="card-action-button delete-button"
                     aria-label="Delete bookmark"
+                    onClick={()=>onDelete(id)}
                 >
                     <Trash size={16} />
                 </button>
