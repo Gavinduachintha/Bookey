@@ -15,22 +15,31 @@ public class BookmarkService {
         this.bookmarkRepository = bookmarkRepository;
     }
 
-    public WebBookmark addBookmark(String title, String url, String description) {
-        WebBookmark bookmark = new WebBookmark(title, url, description);
+    public WebBookmark addBookmark(String title, String url, String description, Integer time) {
+        WebBookmark bookmark = new WebBookmark(title, url, description, time);
         return bookmarkRepository.save(bookmark);
+    }
+
+    public WebBookmark addBookmark(String title, String url, String description) {
+        return addBookmark(title, url, description, null);
     }
 
     public List<WebBookmark> getAllBookmarks() {
         return bookmarkRepository.findAll();
     }
 
-    public WebBookmark updateBookmark(String id, String title, String url, String description) {
+    public WebBookmark updateBookmark(String id, String title, String url, String description, Integer time) {
         WebBookmark bookmark = bookmarkRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Bookmark not found"));
         bookmark.setTitle(title);
         bookmark.setUrl(url);
         bookmark.setDescription(description);
+        bookmark.setTime(time);
         return bookmarkRepository.save(bookmark);
+    }
+
+    public WebBookmark updateBookmark(String id, String title, String url, String description) {
+        return updateBookmark(id, title, url, description, null);
     }
 
     public void deleteBookmark(String id) {

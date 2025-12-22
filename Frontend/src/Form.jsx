@@ -6,6 +6,7 @@ export const Form = ({ onAddCard, onClose }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
+    const [time, setTime] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -14,6 +15,18 @@ export const Form = ({ onAddCard, onClose }) => {
         setError("");
         setLoading(true);
 
+        // validate time if provided
+        let timeValue = null;
+        if (time !== "") {
+            const parsed = parseInt(time, 10);
+            if (isNaN(parsed) || parsed < 0) {
+                setError("Time must be a non-negative integer (seconds) or left empty.");
+                setLoading(false);
+                return;
+            }
+            timeValue = parsed;
+        }
+
         try {
             // ✅ This matches your MongoDB Spring Boot Controller:
             // POST /api/bookmarks
@@ -21,6 +34,7 @@ export const Form = ({ onAddCard, onClose }) => {
                 title,
                 description,
                 url,
+                time: timeValue,
             });
 
             // ✅ MongoDB will return the saved object with STRING id
@@ -30,6 +44,7 @@ export const Form = ({ onAddCard, onClose }) => {
             setTitle("");
             setDescription("");
             setUrl("");
+            setTime("");
             onClose();
 
             console.log("✅ Bookmark added:", response.data);
@@ -79,6 +94,17 @@ export const Form = ({ onAddCard, onClose }) => {
                             value={url}
                             onChange={(e) => setUrl(e.target.value)}
                             required
+                        />
+                    </label>
+
+                    <label>
+                        Time (seconds, optional):
+                        <input
+                            type="number"
+                            min="0"
+                            value={time}
+                            onChange={(e) => setTime(e.target.value)}
+                            placeholder="e.g. 90"
                         />
                     </label>
 

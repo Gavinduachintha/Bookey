@@ -11,6 +11,9 @@ public class WebBookmark extends AbstractBookmark {
 
     private String description;
 
+    // Optional time (seconds) for video bookmarks
+    private Integer time;
+
     // ✅ Required empty constructor for MongoDB
     public WebBookmark() {
     }
@@ -19,6 +22,13 @@ public class WebBookmark extends AbstractBookmark {
     public WebBookmark(String title, String url, String description) {
         super(title, url);
         this.description = description;
+    }
+
+    // Convenience constructor including time
+    public WebBookmark(String title, String url, String description, Integer time) {
+        super(title, url);
+        this.description = description;
+        this.time = time;
     }
 
     // ✅ MongoDB ID Getter & Setter
@@ -37,6 +47,15 @@ public class WebBookmark extends AbstractBookmark {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    // Time getter/setter
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
     }
 
     // ✅ Polymorphism still works (no change needed!)

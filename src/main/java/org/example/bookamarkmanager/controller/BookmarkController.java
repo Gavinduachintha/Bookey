@@ -30,7 +30,8 @@ public class BookmarkController {
         return bookmarkService.addBookmark(
                 bookmark.getTitle(),
                 bookmark.getUrl(),
-                bookmark.getDescription()
+                bookmark.getDescription(),
+                bookmark.getTime()
         );
 
     }
@@ -41,7 +42,8 @@ public class BookmarkController {
                     id,
                     bookmark.getTitle(),
                     bookmark.getUrl(),
-                    bookmark.getDescription()
+                    bookmark.getDescription(),
+                    bookmark.getTime()
             );
             return ResponseEntity.ok(updatedBookmark);
         } catch (NoSuchElementException | IllegalArgumentException e) {

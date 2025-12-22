@@ -61,6 +61,21 @@ function App() {
     }
   }
 
+  const updateCard = async (id, updatedData) => {
+    try {
+      const response = await axios.put(`/api/bookmarks/${id}`, updatedData);
+      if (response.status === 200) {
+        setBookmarks((prev) =>
+          prev.map((bm) => (bm.id === id ? response.data : bm))
+        );
+      } else {
+        console.error('Unexpected update response:', response.status, response.data);
+      }
+    } catch (error) {
+      console.error("Error updating bookmark:", error);
+    }
+  };
+
   return (
     <>
       <div className="app-container">
@@ -84,7 +99,9 @@ function App() {
                 title={bm.title}
                 description={bm.description}
                 url={bm.url}
+                time={bm.time}
                 onDelete={deleteCard}
+                onUpdate={updateCard}
               />
             ))}
           </div>
