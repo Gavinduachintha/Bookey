@@ -113,13 +113,13 @@ function App() {
               <Form onAddCard={handleAddCard} onClose={()=>setShowForm(false)}/>
           )}
         </div>
-        <VideoBookmark
-            title="Intro"
-            description="Introduction to the topic"
-            url="https://youtube.com"
-            time={10}
+        {/*<VideoBookmark*/}
+        {/*    title="Intro"*/}
+        {/*    description="Introduction to the topic"*/}
+        {/*    url="https://youtube.com"*/}
+        {/*    time={10}*/}
 
-        />
+        {/*/>*/}
         </div>
     </>
 
