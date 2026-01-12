@@ -37,3 +37,23 @@
   align-items: center;
   justify-content: center;
 }
+
+
+/* ===============================
+   Video Bookmarks Grid (Custom)
+   =============================== */
+
+.video-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 280px);
+  gap: 24px;
+  padding: 16px 0;
+  justify-content: center; /* centers grid nicely */
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .video-cards-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,7 +1,14 @@
 import React from "react";
 import "./css/Videocard.css";
 
-const VideoBookmark = ({ title, description, url, time, onClick }) => {
+const VideoBookmark = ({
+                           title,
+                           description,
+                           url,
+                           time,
+                           thumbnail,
+                           onClick
+                       }) => {
     const formatTime = (seconds) => {
         const mins = Math.floor(seconds / 60);
         const secs = Math.floor(seconds % 60);
@@ -10,10 +17,24 @@ const VideoBookmark = ({ title, description, url, time, onClick }) => {
 
     return (
         <div className="video-bookmark" onClick={() => onClick(time)}>
-            <span className="bookmark-time">{formatTime(time)}</span>
-            <span className="bookmark-title">{title}</span>
-            <span className="bookmark-description">{description}</span>
-            <span className="bookmark-url">{url}</span>
+            {/* Thumbnail Section */}
+            <div className="thumbnail-wrapper">
+                <img
+                    src={thumbnail}
+                    alt={title}
+                    className="bookmark-thumbnail"
+                />
+                <span className="thumbnail-time">
+                    {formatTime(time)}
+                </span>
+            </div>
+
+            {/* Content Section */}
+            <div className="bookmark-content">
+                <h3 className="bookmark-title">{title}</h3>
+                <p className="bookmark-description">{description}</p>
+                <span className="bookmark-url">{url}</span>
+            </div>
         </div>
     );
 };

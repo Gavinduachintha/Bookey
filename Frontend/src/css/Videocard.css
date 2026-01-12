@@ -1,65 +1,88 @@
 .video-bookmark {
+    width: 280px;              /* ⬅ narrower */
+    min-height: 240px;         /* ⬅ taller */
     display: flex;
     flex-direction: column;
-    gap: 6px;
-    padding: 14px 16px;
-    margin-bottom: 12px;
-    border-radius: 12px;
-    background: linear-gradient(145deg, #0f172a, #020617);
+    border-radius: 18px;
+    background: linear-gradient(160deg, #020617, #0f172a);
     border: 1px solid #1e293b;
+    overflow: hidden;
     cursor: pointer;
-    transition: all 0.25s ease;
+    transition: all 0.3s ease;
 }
 
 .video-bookmark:hover {
-    transform: translateY(-2px) scale(1.01);
+    transform: translateY(-6px);
     border-color: #38bdf8;
-    box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+    box-shadow: 0 16px 40px rgba(56, 189, 248, 0.25);
 }
 
-/* ✅ Time Badge */
-.bookmark-time {
-    align-self: flex-start;
+/* ───────── Thumbnail ───────── */
+.thumbnail-wrapper {
+    position: relative;
+    width: 100%;
+    height: 160px;
+    overflow: hidden;
+}
+
+.bookmark-thumbnail {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.video-bookmark:hover .bookmark-thumbnail {
+    transform: scale(1.08);
+}
+
+/* Time Badge on Thumbnail */
+.thumbnail-time {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.75);
+    color: #e5e7eb;
     font-size: 12px;
     font-weight: 600;
-    color: #0f172a;
-    background: #38bdf8;
-    padding: 3px 8px;
+    padding: 4px 8px;
     border-radius: 6px;
 }
 
-/* ✅ Title */
+/* ───────── Content ───────── */
+.bookmark-content {
+    flex: 1;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
 .bookmark-title {
     font-size: 16px;
     font-weight: 600;
-    color: #e5e7eb;
+    color: #f1f5f9;
+    line-height: 1.3;
 }
 
-/* ✅ Description */
 .bookmark-description {
     font-size: 14px;
-    line-height: 1.4;
     color: #94a3b8;
+    line-height: 1.4;
+    flex-grow: 1;
 }
 
-/* ✅ URL */
 .bookmark-url {
     font-size: 12px;
     color: #38bdf8;
     word-break: break-all;
+    opacity: 0.85;
 }
 
-/* ✅ Mobile Friendly */
+/* ───────── Mobile Friendly ───────── */
 @media (max-width: 500px) {
     .video-bookmark {
-        padding: 12px;
-    }
-
-    .bookmark-title {
-        font-size: 15px;
-    }
-
-    .bookmark-description {
-        font-size: 13px;
+        width: 100%;
+        min-height: 340px;
     }
 }

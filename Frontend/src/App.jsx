@@ -11,6 +11,7 @@ function App() {
 
   const [showForm, setShowForm] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
+  const [videoBookmarks, setVideoBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -21,7 +22,9 @@ function App() {
       try {
         // use relative path so dev-server proxy or same-origin works
         const res = await axios.get('/api/bookmarks');
+        const res2 = await axios.get('/api/video-bookmarks');
         setBookmarks(res.data || []);
+        setVideoBookmarks(res2.data || []);
       } catch (err) {
         // improved logging for diagnostics
         console.error('Failed to fetch bookmarks', err);
@@ -106,6 +109,21 @@ function App() {
             ))}
           </div>
         </div>
+        <div className="header">
+          <h1>Video Bookmarks</h1>
+        </div>
+        <div className="video-cards-grid">
+          {videoBookmarks.map((vb) => (
+              <VideoBookmark
+                  key={vb.id}
+                  title={vb.title}
+                  description={vb.description}
+                  url={vb.url}
+                  time={vb.time}
+                  thumbnail={vb.thumbnail}
+              />
+          ))}
+        </div>
 
         <div className="add-button">
           <CirclePlus onClick={()=>setShowForm(true)}/>
@@ -113,13 +131,8 @@ function App() {
               <Form onAddCard={handleAddCard} onClose={()=>setShowForm(false)}/>
           )}
         </div>
-        {/*<VideoBookmark*/}
-        {/*    title="Intro"*/}
-        {/*    description="Introduction to the topic"*/}
-        {/*    url="https://youtube.com"*/}
-        {/*    time={10}*/}
 
-        {/*/>*/}
+
         </div>
     </>
 
