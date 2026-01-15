@@ -3,13 +3,14 @@ import {useState, useEffect} from "react";
 import './css/App.css'
 import {Card} from "./Card.jsx";
 import {Form} from "./Form.jsx";
-import { CirclePlus} from 'lucide-react';
 import axios from 'axios';
 import VideoBookmark from "./VideoBookmark.jsx";
+import { AddVideoBookmark } from "./AddVideoBookmark.jsx";
 
 function App() {
 
   const [showForm, setShowForm] = useState(false);
+  const [showVideoForm, setShowVideoForm] = useState(false);
   const [bookmarks, setBookmarks] = useState([]);
   const [videoBookmarks, setVideoBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -51,6 +52,10 @@ function App() {
     setBookmarks((prev) => [newCard, ...prev]);
   };
 
+  const handleAddVideoCard = (newVideoCard) => {
+    setVideoBookmarks((prev) => [newVideoCard, ...prev]);
+  };
+
   const deleteCard = async (id) => {
     try {
       const response = await axios.delete(`/api/bookmarks/${id}`);
@@ -63,6 +68,20 @@ function App() {
       console.error("Error deleting bookmark:", error);
     }
   }
+
+  // Delete a video bookmark (same backend endpoint but updates videoBookmarks state)
+  const deleteVideoCard = async (id) => {
+    try {
+      const response = await axios.delete(`/api/bookmarks/${id}`);
+      if (response.status === 204 || response.status === 200) {
+        setVideoBookmarks((prev) => prev.filter((vb) => vb.id !== id));
+      } else {
+        console.error('Unexpected delete response for video bookmark:', response.status, response.data);
+      }
+    } catch (error) {
+      console.error("Error deleting video bookmark:", error);
+    }
+  };
 
   const updateCard = async (id, updatedData) => {
     try {
@@ -116,24 +135,32 @@ function App() {
           {videoBookmarks.map((vb) => (
               <VideoBookmark
                   key={vb.id}
+                  id={vb.id}
                   title={vb.title}
                   description={vb.description}
                   url={vb.url}
                   time={vb.time}
                   thumbnail={vb.thumbnail}
+                  onDelete={deleteVideoCard}
               />
           ))}
         </div>
 
         <div className="add-button">
-          <CirclePlus onClick={()=>setShowForm(true)}/>
-          {showForm &&(
-              <Form onAddCard={handleAddCard} onClose={()=>setShowForm(false)}/>
-          )}
+          <p onClick={()=>setShowForm(true)}>Add Bookmark</p>
         </div>
+        {showForm && (
+          <Form onAddCard={handleAddCard} onClose={() => setShowForm(false)} />
+        )}
+      </div>
+      <div className="add-video-button">
+        <p onClick={()=>setShowVideoForm(true)}>Add Video Bookmark</p>
+      </div>
 
+      {showVideoForm && (
+        <AddVideoBookmark onAddCard={handleAddVideoCard} onClose={() => setShowVideoForm(false)} />
+      )}
 
-        </div>
     </>
 
   )

@@ -1,32 +1,115 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Typography */
+  --font-sans: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-weight-normal: 400;
+  --line-height: 1.5;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #c6b5ee;
+  /* Palette */
+  --bg-base: #0f1115;        /* app background */
+  --bg-elevated: #16181c;    /* cards, modals */
+  --bg-muted: #1b1d20;       /* panels */
+  --surface-2: #23272b;      /* subtle surfaces */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  --border-subtle: #222428;
+  --border: #2b2f33;
+
+  --text-primary: #e6eef6;
+  --text-secondary: #a9b3bf;
+  --text-muted: #7f8a95;
+
+  /* accents */
+  --accent-blue: #60a5fa;
+  --accent-blue-2: #38bdf8;
+  --accent-green: #10b981;
+  --accent-yellow: #fbbf24;
+  --accent-red: #f87171;
+
+  /* shadows & radius */
+  --shadow-sm: 0 6px 18px rgba(2,6,23,0.6);
+  --shadow-md: 0 12px 28px rgba(2,6,23,0.65);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* spacing */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+
+  /* transitions */
+  --transition-fast: 150ms ease;
+  --transition: 220ms cubic-bezier(.2,.9,.3,1);
+}
+
+/* Global */
+*{
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  /* include a generic fallback after the variable to satisfy linters */
+  font-family: var(--font-sans), sans-serif;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Floating add button updated for dark theme */
 .add-button{
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: #10b981;
-    color: white;
-    font-size: 32px;
+    width: 120px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--text-primary);
+    color: black;
+    font-size: 28px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-sm);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 60;
+    font-size: 15px;
+
+}
+
+.add-button:hover{
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-video-button{
+    position: fixed;
+    bottom: 24px;
+    right: 150px;
+    width: 200px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--text-primary);
+    color: black;
+    font-size: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-sm);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 60;
+    font-size: 15px;
+}
+
+.add-video-button:hover{
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
 }

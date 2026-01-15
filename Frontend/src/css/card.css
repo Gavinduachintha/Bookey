@@ -1,18 +1,20 @@
 /* Base Card */
 .card {
-    background: white;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    background: var(--bg-muted);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
     padding: 16px;
     width: 320px;
-    transition: all 0.2s ease;
-    border: 1px solid rgba(0, 0, 0, 0.08);
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    border: 1px solid var(--border);
     overflow: hidden;
+    color: var(--text-primary);
 }
 
-.card:hover {
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
-    transform: translateY(-2px);
+.card:hover, .card:focus-within {
+    box-shadow: var(--shadow-md);
+    transform: translateY(-4px);
+    border-color: var(--accent-blue-2);
 }
 
 /* Header */
@@ -21,17 +23,20 @@
     align-items: center;
     gap: 12px;
     margin-bottom: 12px;
+    color: var(--text-primary);
 }
 
 .favicon-container {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #f8f9fa;
+    background: var(--bg-elevated);
+    border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
 }
 
 .card-favicon {
@@ -43,7 +48,7 @@
 .card-title {
     font-size: 16px;
     font-weight: 600;
-    color: #1a1a1a;
+    color: var(--text-primary);
     margin: 0;
     white-space: nowrap;
     overflow: hidden;
@@ -52,29 +57,30 @@
 
 /* Body */
 .card-body {
-    margin-bottom: 16px;
+    margin-bottom: 14px;
 }
 
 .card-url {
-    font-size: 14px;
-    color: #6b7280;
+    font-size: 13px;
+    color: var(--text-muted);
     text-decoration: none;
     display: block;
     margin-bottom: 8px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    transition: color var(--transition-fast);
 }
 
 .card-url:hover {
-    color: #3b82f6;
+    color: var(--accent-blue);
     text-decoration: underline;
 }
 
 .card-description {
     font-size: 14px;
-    color: #4b5563;
-    line-height: 1.4;
+    color: var(--text-secondary);
+    line-height: 1.45;
     margin: 0;
     display: -webkit-box;
     -webkit-line-clamp: 2;
@@ -87,47 +93,42 @@
     display: flex;
     gap: 8px;
     justify-content: flex-end;
+    padding-top: 10px;
+    border-top: 1px solid rgba(255,255,255,0.02);
 }
 
 .card-action-button {
-    width: 32px;
-    height: 32px;
-    border-radius: 6px;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
     border: none;
-    background: #f8f9fa;
-    color: #6b7280;
+    background: var(--bg-elevated);
+    color: var(--text-muted);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.15s ease;
+    transition: transform var(--transition-fast), background var(--transition-fast), color var(--transition-fast);
 }
 
 .card-action-button:hover {
-    background: #e5e7eb;
-    color: #1a1a1a;
+    transform: scale(1.05);
+    background: var(--surface-2);
+    color: var(--text-primary);
 }
+
+.card-action-button:active { transform: scale(0.98); }
 
 .visit-button {
-    color: #3b82f6;
+    color: var(--accent-blue);
 }
 
-.visit-button:hover {
-    background: rgba(59, 130, 246, 0.1);
-}
+.visit-button:hover { background: rgba(96,165,250,0.08); color: var(--accent-blue-2); }
 
-.edit-button {
-    color: #f59e0b;
-}
+.edit-button { color: var(--accent-yellow); }
 
-.edit-button:hover {
-    background: rgba(245, 158, 11, 0.1);
-}
+.edit-button:hover { background: rgba(251,191,36,0.06); color: #fcd34d; }
 
-.delete-button {
-    color: #ef4444;
-}
+.delete-button { color: var(--accent-red); }
 
-.delete-button:hover {
-    background: rgba(239, 68, 68, 0.1);
-}
+.delete-button:hover { background: rgba(248,113,113,0.06); color: #fca5a5; }

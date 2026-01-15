@@ -1,6 +1,7 @@
 package org.example.bookamarkmanager.controller;
 
 import org.example.bookamarkmanager.model.WebBookmark;
+import org.example.bookamarkmanager.model.VideoBookmark;
 import org.example.bookamarkmanager.service.BookmarkService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -46,6 +47,40 @@ public class BookmarkController {
                     bookmark.getTime()
             );
             return ResponseEntity.ok(updatedBookmark);
+        } catch (NoSuchElementException | IllegalArgumentException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    // --- Video bookmark endpoints (minimal, OOP-preserving) ---
+    @GetMapping("/video-bookmarks")
+    public List<VideoBookmark> getVideoBookmarks() {
+        return bookmarkService.getAllVideoBookmarks();
+    }
+
+    @PostMapping("/video-bookmarks")
+    public VideoBookmark addVideoBookmark(@RequestBody VideoBookmark bookmark) {
+        return bookmarkService.addVideoBookmark(
+                bookmark.getTitle(),
+                bookmark.getUrl(),
+                bookmark.getDescription(),
+                bookmark.getVideoUrl(),
+                bookmark.getDuration()
+        );
+    }
+
+    @PutMapping("/video-bookmarks/{id}")
+    public ResponseEntity<VideoBookmark> updateVideoBookmark(@PathVariable String id, @RequestBody VideoBookmark bookmark) {
+        try {
+            VideoBookmark updated = bookmarkService.updateVideoBookmark(
+                    id,
+                    bookmark.getTitle(),
+                    bookmark.getUrl(),
+                    bookmark.getDescription(),
+                    bookmark.getVideoUrl(),
+                    bookmark.getDuration()
+            );
+            return ResponseEntity.ok(updated);
         } catch (NoSuchElementException | IllegalArgumentException e) {
             return ResponseEntity.notFound().build();
         }
