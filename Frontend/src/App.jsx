@@ -138,9 +138,8 @@ function App() {
                   id={vb.id}
                   title={vb.title}
                   description={vb.description}
-                  url={vb.url}
+                  videoUrl={vb.videoUrl}
                   time={vb.time}
-                  thumbnail={vb.thumbnail}
                   onDelete={deleteVideoCard}
               />
           ))}
