@@ -33,7 +33,11 @@ public class BookmarkService {
 
     // UPDATED: Get bookmarks for specific user only
     public List<WebBookmark> getAllBookmarks(String username) {
-        return bookmarkRepository.findByUsername(username);
+        // Filter out VideoBookmark instances so the generic web bookmarks list does not include videos
+        return bookmarkRepository.findByUsername(username).stream()
+                .filter(b -> !(b instanceof VideoBookmark))
+                .map(b -> (WebBookmark) b)
+                .collect(Collectors.toList());
     }
 
     // UPDATED: Return only VideoBookmark instances for specific user

@@ -9,7 +9,8 @@ const VideoBookmark = ({
                            url,
                            onClick,
                             videoUrl,
-                           onDelete
+                           onDelete,
+                           time
                        }) => {
     return (
         <div className="video-bookmark" onClick={() => onClick && onClick(time)}>
@@ -19,7 +20,7 @@ const VideoBookmark = ({
             <div className="bookmark-content">
                 <h3 className="bookmark-title">{title}</h3>
                 <p className="bookmark-description">{description}</p>
-                <span className="bookmark-url">{videoUrl}</span>
+                <span className="bookmark-url">{videoUrl || url}</span>
             </div>
 
             {/* Actions: Open and Delete buttons */}
@@ -29,7 +30,8 @@ const VideoBookmark = ({
                     aria-label="Visit website"
                     onClick={(e) => {
                         e.stopPropagation();
-                        window.open(url);
+                        // fallback to page URL if video page URL is not provided
+                        window.open(url || videoUrl);
                     }}
                 >
                     <ExternalLink size={16} />
