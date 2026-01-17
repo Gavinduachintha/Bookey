@@ -32,8 +32,8 @@ const VideoBookmark = ({
                         e.stopPropagation();
                         // fallback to page URL if video page URL is not provided
                         window.open(url || videoUrl);
-                    }}
-                >
+                    }}>
+
                     <ExternalLink size={16} />
                 </button>
 
