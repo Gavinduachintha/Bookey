@@ -53,7 +53,10 @@ export const Login = ({ onLoginSuccess }) => {
     };
 
     return (
-        <div className="login-container">
+        <div className="main-container">
+            <h3>Welcome Back</h3>
+
+            <div className="login-container">
             <div className="login-box">
                 <h2>{isRegistering ? 'Register' :  'Login'}</h2>
 
@@ -98,6 +101,7 @@ export const Login = ({ onLoginSuccess }) => {
                     </button>
                 </p>
             </div>
+        </div>
         </div>
     );
 };
