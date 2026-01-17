@@ -63,3 +63,28 @@
     padding: 12px;
   }
 }
+
+/* Add to existing App.css */
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 0;
+  color: var(--text-primary);
+}
+
+.logout-button {
+  padding: 8px 16px;
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  transition: background var(--transition-fast);
+}
+
+.logout-button:hover {
+  background: #dc2626;
+}

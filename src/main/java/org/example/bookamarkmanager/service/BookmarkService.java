@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class BookmarkService {
+public class    BookmarkService {
 
     private final BookmarkRepository bookmarkRepository;
 
