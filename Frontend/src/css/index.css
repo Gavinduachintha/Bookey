@@ -1,32 +1,116 @@
 :root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
+  /* Typography */
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --font-weight-normal: 400;
+  --line-height: 1.5;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #c6b5ee;
+  /* Modern Black & White Palette */
+  --bg-base: #ffffff;           /* pure white app background */
+  --bg-elevated: #fafafa;       /* subtle off-white for cards */
+  --bg-muted: #f5f5f5;          /* light gray panels */
+  --surface-2: #e5e5e5;         /* subtle surfaces */
 
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
+  --border-subtle: #e0e0e0;
+  --border: #d4d4d4;
+
+  --text-primary: #0a0a0a;      /* near black */
+  --text-secondary: #525252;    /* medium gray */
+  --text-muted: #737373;        /* light gray */
+
+  /* Black accents with subtle variations */
+  --accent-primary: #000000;    /* pure black for buttons */
+  --accent-hover: #1a1a1a;      /* slightly lighter black for hover */
+  --accent-active: #333333;     /* gray for active states */
+  --accent-red: #dc2626;        /* red for delete */
+  --accent-green: #16a34a;      /* green for success */
+
+  /* shadows & radius */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+
+  /* spacing */
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+
+  /* transitions */
+  --transition-fast: 150ms ease;
+  --transition: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global */
+*{
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans), sans-serif;
+  font-weight: var(--font-weight-normal);
+  line-height: var(--line-height);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Floating add button - removed as we now use actions-container */
 .add-button{
     position: fixed;
     bottom: 24px;
     right: 24px;
-    width: 56px;
-    height: 56px;
-    border-radius: 50%;
-    background-color: #10b981;
+    width: 120px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--accent-primary);
     color: white;
-    font-size: 32px;
+    font-size: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-shadow: var(--shadow-md);
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 60;
+    border: none;
+}
+
+.add-button:hover{
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+  background-color: var(--accent-hover);
+}
+
+.add-video-button{
+    position: fixed;
+    bottom: 24px;
+    right: 150px;
+    width: 200px;
+    height: 40px;
+    border-radius: 50px;
+    background-color: var(--accent-primary);
+    color: white;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-md);
+    cursor: pointer;
+    transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+    z-index: 60;
+    border: none;
+}
+
+.add-video-button:hover{
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+    background-color: var(--accent-hover);
 }

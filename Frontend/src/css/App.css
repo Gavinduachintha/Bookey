@@ -1,0 +1,235 @@
+/* filepath: e:\Bookamark manager\Frontend\src\css\App.css */
+
+/* App container */
+.app-container {
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 32px 24px;
+  min-height: 100vh;
+  background: var(--bg-base);
+}
+
+.content {
+  margin-top: 48px;
+}
+
+/* Cards grid: left-to-right, then top-to-bottom flow, responsive */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-auto-flow: row;
+  gap: var(--space-md);
+  align-items: start;
+  justify-items: start;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.cards-grid .card {
+  margin: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* Header styling - Modern black and white with subtle border */
+.glass-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  /*border-bottom: 1px solid var(--border);*/
+  z-index: 1000;
+  box-shadow: var(--shadow-sm);
+  box-sizing: border-box;
+}
+
+.glass-header h1 {
+  margin: 0;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.5px;
+}
+
+/* Section headers */
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0 16px 0;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent-primary);
+  margin-bottom: 24px;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
+  color: var(--text-primary);
+}
+
+/* Expand/Collapse button */
+.expand-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  width: 100%;
+}
+
+.expand-button {
+  background: var(--bg-base);
+  border: 2px solid var(--accent-primary);
+  padding: 12px 32px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all var(--transition);
+  font-weight: 600;
+  color: var(--accent-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.expand-button:hover {
+  background: var(--accent-primary);
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+/* Video Bookmarks Grid (Custom) */
+.video-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 24px;
+  padding: 16px 0;
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .video-cards-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .app-container {
+    margin: 16px auto;
+    padding: 12px;
+    max-width: 95vw;
+  }
+
+  .glass-header {
+    padding: 16px 20px;
+  }
+
+  .glass-header h1 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Logout button - Black theme */
+.logout-button {
+  padding: 10px 20px;
+  background: var(--accent-primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.logout-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* User Header Section */
+.header-user-section {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 16px 6px 6px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+}
+
+.user-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--accent-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.username-display {
+  color: var(--text-primary);
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.login-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-left: 4px;
+}
+
+/* Floating Actions - Modern black buttons */
+.actions-container {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 100;
+}
+
+.glass-button {
+  background: var(--accent-primary);
+  border: none;
+  color: white;
+  padding: 14px 28px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
+}
+
+.glass-button:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.glass-button:active {
+  transform: translateY(0);
+}

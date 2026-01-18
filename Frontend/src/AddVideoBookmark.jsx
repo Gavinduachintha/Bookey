@@ -3,11 +3,11 @@ import { createPortal } from "react-dom";
 import axios from "axios";
 import "./css/form.css";
 
-export const Form = ({ onAddCard, onClose }) => {
+export const AddVideoBookmark = ({ onAddCard, onClose }) => {
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [url, setUrl] = useState("");
-    const [time, setTime] = useState("");
+    const [videoUrl, setVideoUrl] = useState("");
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
 
@@ -16,45 +16,30 @@ export const Form = ({ onAddCard, onClose }) => {
         setError("");
         setLoading(true);
 
-        // validate time if provided
-        let parsedTime = null;
-        if (time !== "") {
-            const parsed = parseInt(time, 10);
-            if (isNaN(parsed) || parsed < 0) {
-                setError("Time must be a non-negative integer (seconds) or left empty.");
-                setLoading(false);
-                return;
-            }
-            parsedTime = parsed;
-        }
-
         try {
-            // build payload and include time only when provided
-            const payload = {
+            // POST to the video-bookmarks endpoint expected by the backend
+            const response = await axios.post("/api/video-bookmarks", {
                 title,
                 description,
                 url,
-            };
-            if (parsedTime !== null) payload.time = parsedTime;
+                videoUrl,
+                // no time/duration input per request — backend will accept 0 if not provided
+                duration: 0,
+            });
 
-            // ✅ This matches your MongoDB Spring Boot Controller:
-            // POST /api/bookmarks
-            const response = await axios.post("/api/bookmarks", payload);
-
-            // ✅ MongoDB will return the saved object with STRING id
             onAddCard(response.data);
 
-            // ✅ Reset form
+            // Reset form
             setTitle("");
             setDescription("");
             setUrl("");
-            setTime("");
+            setVideoUrl("");
             onClose();
 
-            console.log("✅ Bookmark added:", response.data);
+            console.log("✅ Video bookmark added:", response.data);
         } catch (err) {
-            console.error("❌ Error submitting bookmark:", err);
-            setError("Failed to add bookmark. Please try again.");
+            console.error("❌ Error submitting video bookmark:", err);
+            setError("Failed to add video bookmark. Please try again.");
         } finally {
             setLoading(false);
         }
@@ -67,7 +52,7 @@ export const Form = ({ onAddCard, onClose }) => {
                 onSubmit={handleSubmit}
                 onClick={(e) => e.stopPropagation()}
             >
-                <h3>Add New Bookmark</h3>
+                <h3>Add New Video Bookmark</h3>
 
                 {error && <p className="form-error">{error}</p>}
 
@@ -91,7 +76,7 @@ export const Form = ({ onAddCard, onClose }) => {
                 </label>
 
                 <label>
-                    URL:
+                    Page URL:
                     <input
                         type="url"
                         value={url}
@@ -100,7 +85,16 @@ export const Form = ({ onAddCard, onClose }) => {
                     />
                 </label>
 
-
+                <label>
+                    Video URL:
+                    <input
+                        type="url"
+                        value={videoUrl}
+                        onChange={(e) => setVideoUrl(e.target.value)}
+                        placeholder="https://www.youtube.com/watch?v=..."
+                        required
+                    />
+                </label>
 
                 <div className="form-actions">
                     <button
@@ -113,7 +107,7 @@ export const Form = ({ onAddCard, onClose }) => {
                     </button>
 
                     <button type="submit" className="submit-btn" disabled={loading}>
-                        {loading ? "Saving..." : "Add Card"}
+                        {loading ? "Saving..." : "Add Video Bookmark"}
                     </button>
                 </div>
             </form>

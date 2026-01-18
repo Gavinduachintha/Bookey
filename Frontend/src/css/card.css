@@ -1,155 +1,220 @@
-.card{
-    border: 1px solid #e5e7eb;
-    width: 220px;
-    height: auto;
-    border-radius: 16px;
-    padding: 16px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
-    background-color: #ffffff;
-    margin: 16px;
-    transition: box-shadow 0.2s ease, border-color 0.2s ease;
-    display: flex;
-    flex-direction: column;
+/* Base Card - Modern white card with black accents */
+.card {
+    background: linear-gradient(135deg, #ffffff 0%, #fafafa 100%);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-sm);
+    padding: 18px;
+    width: 320px;
+    transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+    border: 1px solid var(--border);
+    overflow: hidden;
+    color: var(--text-primary);
+    position: relative;
 }
 
-.card:hover{
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    border-color: #d1d5db;
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 100%);
+    pointer-events: none;
+    z-index: 0;
 }
 
-.heading{
+.card > * {
+    position: relative;
+    z-index: 1;
+}
+
+.card:hover, .card:focus-within {
+    box-shadow: var(--shadow-lg);
+    transform: translateY(-4px);
+    border-color: var(--accent-primary);
+    background: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+}
+
+/* Header */
+.card-header {
     display: flex;
     align-items: center;
     gap: 12px;
-    margin-bottom: 16px;
+    margin-bottom: 14px;
+    color: var(--text-primary);
 }
 
-.card-image{
-    width: 48px;
-    height: 48px;
-    object-fit: cover;
-    border-radius: 50%;
-    flex-shrink: 0;
-    background-color: #f9fafb;
-}
-
-.card-content{
-    flex: 1;
-    margin-bottom: 16px;
-}
-
-.card-title{
-    font-size: 18px;
-    font-weight: 600;
-    margin: 0;
-    color: #111827;
-    line-height: 1.4;
-    letter-spacing: -0.02em;
+.favicon-container {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
     overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-}
-
-.card-url{
-    font-size: 13px;
-    color: #3b82f6;
-    margin-bottom: 8px;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: 500;
-}
-
-.card-description{
-    font-size: 14px;
-    color: #6b7280;
-    line-height: 1.5;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-}
-
-.card-actions{
-    display: flex;
-    gap: 6px;
-    width: 100%;
-}
-
-.card-actions button{
-    flex: 1;
-    cursor: pointer;
-    height: 38px;
-    border-radius: 8px;
-    border: 1px solid;
-    font-size: 15px;
-    font-weight: 500;
-    transition: all 0.2s ease;
-    padding: 0;
     display: flex;
     align-items: center;
     justify-content: center;
+    background: var(--bg-muted);
+    border: 1px solid var(--border-subtle);
+    flex-shrink: 0;
 }
 
-.card-actions button svg{
-    width: 18px;
-    height: 18px;
-    stroke-width: 2;
+.card-favicon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
-.button-visit{
-    background-color: #3b82f6;
-    border-color: #3b82f6;
+.card-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Body */
+.card-body {
+    margin-bottom: 14px;
+}
+
+.card-url {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    transition: color var(--transition-fast);
+}
+
+.card-url:hover {
+    color: var(--accent-primary);
+    text-decoration: underline;
+}
+
+.card-description {
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin: 0;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Actions */
+.card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding-top: 12px;
+    border-top: 1px solid var(--border-subtle);
+}
+
+.card-action-button {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-base);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.card-action-button:hover {
+    transform: scale(1.08);
+    border-color: var(--accent-primary);
+    background: var(--bg-muted);
+    color: var(--text-primary);
+}
+
+.card-action-button:active {
+    transform: scale(0.95);
+}
+
+.visit-button {
+    color: var(--text-primary);
+}
+
+.visit-button:hover {
+    background: var(--accent-primary);
     color: white;
+    border-color: var(--accent-primary);
 }
 
-.button-visit:hover{
-    background-color: #2563eb;
-    border-color: #2563eb;
+.edit-button {
+    color: var(--text-secondary);
 }
 
-.button-visit:active{
-    background-color: #1d4ed8;
-    transform: scale(0.98);
+.edit-button:hover {
+    background: var(--accent-active);
+    color: white;
+    border-color: var(--accent-active);
 }
 
-.button-edit{
-    background-color: white;
-    border-color: #d1d5db;
-    color: #374151;
+.delete-button {
+    color: var(--accent-red);
 }
 
-.button-edit:hover{
-    background-color: #f9fafb;
-    border-color: #9ca3af;
+.delete-button:hover {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
 }
 
-.button-edit:active{
-    background-color: #f3f4f6;
-    transform: scale(0.98);
+/* Edit mode inputs */
+.card-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    background: var(--bg-muted);
+    color: var(--text-primary);
+    margin-bottom: 8px;
 }
 
-.button-delete{
-    background-color: white;
-    border-color: #fca5a5;
-    color: #dc2626;
+.card-input:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-base);
 }
 
-.button-delete:hover{
-    background-color: #fef2f2;
-    border-color: #ef4444;
-
+.card-textarea {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    font-size: 14px;
+    background: var(--bg-muted);
+    color: var(--text-primary);
+    min-height: 60px;
+    resize: vertical;
+    font-family: inherit;
 }
 
-.button-delete:active{
-    background-color: #fee2e2;
-    transform: scale(0.98);
+.card-textarea:focus {
+    outline: none;
+    border-color: var(--accent-primary);
+    background: var(--bg-base);
 }
 
-.card-actions button:focus-visible{
-    outline: 2px solid #3b82f6;
-    outline-offset: 2px;
+.card-time-badge {
+    display: inline-block;
+    background: var(--accent-primary);
+    color: white;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-top: 8px;
 }

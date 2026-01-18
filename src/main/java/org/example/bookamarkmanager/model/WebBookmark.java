@@ -1,22 +1,41 @@
 package org.example.bookamarkmanager.model;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+@Document(collection = "bookmarks")
 public class WebBookmark extends AbstractBookmark {
-    private int id;
+
+    @Id
+    @JsonProperty("id")
+    private String id;
+
     private String description;
+
+    private Integer time;
+
+    private String username; // NEW: Track which user owns this bookmark
 
     public WebBookmark() {
     }
 
-    public WebBookmark(int id, String title, String url) {
+    public WebBookmark(String title, String url, String description) {
         super(title, url);
-        this.id = id;
+        this.description = description;
     }
 
-    public int getId() {
+    public WebBookmark(String title, String url, String description, Integer time) {
+        super(title, url);
+        this.description = description;
+        this.time = time;
+    }
+
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -28,9 +47,25 @@ public class WebBookmark extends AbstractBookmark {
         this.description = description;
     }
 
-    // Polymorphism: concrete implementation
+    public Integer getTime() {
+        return time;
+    }
+
+    public void setTime(Integer time) {
+        this.time = time;
+    }
+
+    // NEW:  Getter and Setter for username
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
     @Override
     public String displayInfo() {
-        return "WebBookmark: " + getTitle() + " (" + getUrl() + ")";
+        return "WebBookmark:  " + getTitle() + " (" + getUrl() + ")";
     }
 }
