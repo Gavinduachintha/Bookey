@@ -7,6 +7,7 @@ import axios from 'axios';
 import VideoBookmark from "./VideoBookmark.jsx";
 import {AddVideoBookmark} from "./AddVideoBookmark.jsx";
 import { Login } from "./Login.jsx";
+import { Bookmark, Video } from "lucide-react";
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -16,6 +17,9 @@ function App() {
   const [videoBookmarks, setVideoBookmarks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [isVideoExpanded, setIsVideoExpanded] = useState(false);
+  const [currentUser, setCurrentUser] = useState('');
 
   // Check if user is already logged in
   useEffect(() => {
@@ -25,6 +29,7 @@ function App() {
       const [username, password] = decoded.split(':');
       axios.defaults.auth = { username, password };
       setIsAuthenticated(true);
+      setCurrentUser(username);
     } else {
       setLoading(false);
     }
@@ -65,6 +70,12 @@ function App() {
   }, [isAuthenticated]);
 
   const handleLoginSuccess = () => {
+    const auth = localStorage.getItem('auth');
+    if (auth) {
+      const decoded = atob(auth);
+      const [username] = decoded.split(':');
+      setCurrentUser(username);
+    }
     setIsAuthenticated(true);
   };
 
@@ -72,6 +83,7 @@ function App() {
     localStorage.removeItem('auth');
     delete axios.defaults.auth;
     setIsAuthenticated(false);
+    setCurrentUser('');
     setBookmarks([]);
     setVideoBookmarks([]);
   };
@@ -86,16 +98,18 @@ function App() {
 
   const deleteCard = async (id) => {
     try {
+      console.log('Deleting bookmark with ID:', id);
       const response = await axios.delete(`/api/bookmarks/${id}`);
       if (response.status === 204 || response.status === 200) {
         setBookmarks((prev) => prev.filter((bm) => bm.id !== id));
       } else {
-        console.error('Unexpected delete response:', response. status, response.data);
+        console.error('Unexpected delete response:', response.status, response.data);
       }
     } catch (error) {
-      console.error("Error deleting bookmark:", error);
+      console.error("Error deleting bookmark:", error.response?.status, error.response?.data);
+      console.error("Full error:", error);
     }
-  }
+  };
 
   const deleteVideoCard = async (id) => {
     try {
@@ -132,20 +146,34 @@ function App() {
   if (loading) return <div className="app-container"><p>Loading bookmarks...</p></div>;
   if (error) return <div className="app-container"><p className="error">{error}</p></div>;
 
+  const visibleBookmarks = isExpanded ? bookmarks : bookmarks.slice(0, 8);
+  const visibleVideoBookmarks = isVideoExpanded ? videoBookmarks : videoBookmarks.slice(0, 6);
+
   return (
       <>
+        <div className="glass-header">
+           <h1>Bookey - Bookmark Manager</h1>
+           <div className="header-user-section">
+             {currentUser && (
+                 <div className="user-info">
+                   <span className="login-label">Logged in as:</span>
+                   <div className="user-avatar">
+                     {currentUser.charAt(0).toUpperCase()}
+                   </div>
+                   <span className="username-display">{currentUser}</span>
+                 </div>
+             )}
+             <button className="logout-button" onClick={handleLogout}>Logout</button>
+           </div>
+        </div>
         <div className="app-container">
-          <div className="header">
-            <h1>Bookey - Bookmark Manager</h1>
-            <button className="logout-button" onClick={handleLogout}>Logout</button>
-          </div>
 
           <div className="content">
             <div className="header">
               <h2>Web Bookmarks</h2>
             </div>
             <div className="cards-grid">
-              {bookmarks.map((bm) => (
+              {visibleBookmarks.map((bm) => (
                   <Card
                       key={bm.id}
                       id={bm.id}
@@ -158,38 +186,75 @@ function App() {
                   />
               ))}
             </div>
+            {bookmarks.length > 8 && (
+                <div className="expand-container">
+                    <button
+                        className="expand-button"
+                        onClick={() => setIsExpanded(!isExpanded)}
+                    >
+                        {isExpanded ? 'Show Less' : 'Show All'}
+                        <span style={{
+                            display: 'inline-block',
+                            transform: isExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.3s'
+                        }}>▼</span>
+                    </button>
+                </div>
+            )}
           </div>
 
-          <div className="header">
-            <h2>Video Bookmarks</h2>
-          </div>
-          <div className="video-cards-grid">
-            {videoBookmarks.map((vb) => (
-                <VideoBookmark
-                    key={vb.id}
-                    id={vb.id}
-                    title={vb.title}
-                    description={vb.description}
-                    videoUrl={vb.videoUrl}
-                    time={vb.time}
-                    onDelete={deleteVideoCard}
-                />
-            ))}
+          <div className="content">
+            <div className="header">
+              <h2>Video Bookmarks</h2>
+            </div>
+            <div className="video-cards-grid">
+              {visibleVideoBookmarks.map((vb) => (
+                  <VideoBookmark
+                      key={vb.id}
+                      id={vb.id}
+                      title={vb.title}
+                      description={vb.description}
+                      videoUrl={vb.videoUrl}
+                      time={vb.time}
+                      onDelete={deleteVideoCard}
+                  />
+              ))}
+            </div>
+             {videoBookmarks.length > 6 && (
+                <div className="expand-container">
+                    <button
+                        className="expand-button"
+                        onClick={() => setIsVideoExpanded(!isVideoExpanded)}
+                    >
+                        {isVideoExpanded ? 'Show Less' : 'Show All'}
+                        <span style={{
+                            display: 'inline-block',
+                            transform: isVideoExpanded ? 'rotate(180deg)' : 'rotate(0deg)',
+                            transition: 'transform 0.3s'
+                        }}>▼</span>
+                    </button>
+                </div>
+            )}
           </div>
 
-          <div className="add-button">
-            <p onClick={()=>setShowForm(true)}>Add Bookmark</p>
+          <div className="actions-container">
+            <button className="glass-button" onClick={()=>setShowForm(true)}>
+                <Bookmark size={18} />
+                <span>Add Bookmark</span>
+            </button>
+            <button className="glass-button" onClick={()=>setShowVideoForm(true)}>
+                <Video size={18} />
+                <span>Add Video Bookmark</span>
+            </button>
           </div>
+
           {showForm && (
               <Form onAddCard={handleAddCard} onClose={() => setShowForm(false)} />
           )}
-        </div>
-        <div className="add-video-button">
-          <p onClick={()=>setShowVideoForm(true)}>Add Video Bookmark</p>
-        </div>
-        {showVideoForm && (
+          {showVideoForm && (
             <AddVideoBookmark onAddCard={handleAddVideoCard} onClose={() => setShowVideoForm(false)} />
-        )}
+          )}
+        </div>
       </>
   )
 }

@@ -2,14 +2,14 @@
 
 /* App container */
 .app-container {
-  max-width: 1100px;
+  max-width: 70vw;
   margin: 40px auto;
   padding: 24px;
-  background: var(--bg-elevated);
-  border-radius: var(--radius-lg);
+  /*background: var(--bg-elevated);*/
+  /*border-radius: var(--radius-lg);*/
   min-height: 100vh;
-  box-shadow: var(--shadow-sm);
-  border: 1px solid var(--border);
+  /*box-shadow: var(--shadow-sm);*/
+  /*border: 1px solid var(--border);*/
 }
 
 .content {
@@ -35,12 +35,67 @@
 }
 
 /* Header styling */
+.glass-header {
+  position: sticky;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 16px 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  z-index: 1000;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-sizing: border-box;
+}
+
+.glass-header h1 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Original header class adjustment or removal.
+   The .header class was used for section headers too within content.
+   We keep it for section headers but remove the top main header usage.
+*/
 .header {
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   padding: 18px 0;
   color: var(--text-primary);
+}
+
+.expand-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 24px;
+  width: 100%;
+}
+
+.expand-button {
+  background: var(--bg-elevated); /* Assuming this variable exists, based on previous CSS */
+  border: 1px solid #ddd;
+  padding: 10px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: var(--text-primary);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.expand-button:hover {
+  background: #f0f0f0;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 /* Video Bookmarks Grid (Custom) */
@@ -64,15 +119,6 @@
   }
 }
 
-/* Add to existing App.css */
-
-.header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 0;
-  color: var(--text-primary);
-}
 
 .logout-button {
   padding: 8px 16px;
@@ -87,4 +133,84 @@
 
 .logout-button:hover {
   background: #dc2626;
+}
+
+/* User Header Section */
+.header-user-section {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  /*background: rgba(255, 255, 255, 0.15);*/
+  padding: 4px 12px 4px 4px; /* padding-left is less because avatar is round */
+  /*border-radius: 999px;*/
+  /*border: 1px solid rgba(255, 255, 255, 0.2);*/
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--accent-blue);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+  text-transform: uppercase;
+}
+
+.username-display {
+  color: var(--text-primary);
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.login-label {
+  color: var(--text-secondary);
+  font-size: 12px;
+  margin-left: 8px;
+}
+
+/* Floating Actions */
+.actions-container {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  z-index: 100;
+}
+
+.glass-button {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: var(--text-primary);
+  padding: 12px 24px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  text-align: center;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.glass-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.4);
 }
