@@ -4,13 +4,17 @@
     border-radius: var(--radius-md);
     box-shadow: var(--shadow-sm);
     padding: 18px;
-    width: 320px;
+    width: 100%;
+    min-height: 180px;
     transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
     border: 1px solid var(--border);
     overflow: hidden;
     color: var(--text-primary);
     position: relative;
+
 }
+
+
 
 .card::before {
     content: '';
@@ -48,7 +52,7 @@
 .favicon-container {
     width: 36px;
     height: 36px;
-    border-radius: var(--radius-sm);
+    border-radius: 50%;
     overflow: hidden;
     display: flex;
     align-items: center;
