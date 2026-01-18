@@ -17,35 +17,60 @@ public class BookmarkService {
         this.bookmarkRepository = bookmarkRepository;
     }
 
-    public WebBookmark addBookmark(String title, String url, String description, Integer time) {
+    // UPDATED: Add username parameter
+    public WebBookmark addBookmark(String title, String url, String description, Integer time, String username) {
         WebBookmark bookmark = new WebBookmark(title, url, description, time);
+        bookmark.setUsername(username);
         return bookmarkRepository.save(bookmark);
     }
 
-    public VideoBookmark addVideoBookmark(String title, String url, String description, String videoUrl, int duration) {
+    // UPDATED: Add username parameter
+    public VideoBookmark addVideoBookmark(String title, String url, String description, String videoUrl, int duration, String username) {
         VideoBookmark bookmark = new VideoBookmark(title, url, description, videoUrl, duration);
+        bookmark.setUsername(username);
         return bookmarkRepository.save(bookmark);
     }
 
-    public WebBookmark addBookmark(String title, String url, String description) {
-        return addBookmark(title, url, description, null);
+    // UPDATED: Get bookmarks for specific user only
+    public List<WebBookmark> getAllBookmarks(String username) {
+        // Filter out VideoBookmark instances so the generic web bookmarks list does not include videos
+        return bookmarkRepository.findByUsername(username).stream()
+                .filter(b -> !(b instanceof VideoBookmark))
+                .collect(Collectors.toList());
     }
 
-    public List<WebBookmark> getAllBookmarks() {
-        return bookmarkRepository.findAll();
-    }
-
-    // Return only VideoBookmark instances (preserves OOP and keeps repository generic)
-    public List<VideoBookmark> getAllVideoBookmarks() {
-        return bookmarkRepository.findAll().stream()
+    // UPDATED: Return only VideoBookmark instances for specific user
+    public List<VideoBookmark> getAllVideoBookmarks(String username) {
+        return bookmarkRepository.findByUsername(username).stream()
                 .filter(b -> b instanceof VideoBookmark)
                 .map(b -> (VideoBookmark) b)
                 .collect(Collectors.toList());
     }
 
-    public WebBookmark updateBookmark(String id, String title, String url, String description, Integer time) {
-        WebBookmark bookmark = bookmarkRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Bookmark not found"));
+    // UPDATED: Add username verification
+    public WebBookmark updateBookmark(String id, String title, String url, String description, Integer time, String username) {
+        System.out.println("Looking for bookmark to update with ID: " + id);
+
+        // Get all bookmarks for this user
+        List<WebBookmark> userBookmarks = bookmarkRepository.findByUsername(username);
+        System.out.println("User " + username + " has " + userBookmarks.size() + " bookmarks");
+
+        // Find the bookmark in the user's list
+        WebBookmark bookmark = null;
+        for (WebBookmark b : userBookmarks) {
+            if (id.equals(b.getId())) {
+                // Ensure it's not a VideoBookmark (web bookmarks only in this method)
+                if (!(b instanceof VideoBookmark)) {
+                    bookmark = b;
+                }
+                break;
+            }
+        }
+
+        if (bookmark == null) {
+            throw new IllegalArgumentException("Bookmark not found with id: " + id);
+        }
+
         bookmark.setTitle(title);
         bookmark.setUrl(url);
         bookmark.setDescription(description);
@@ -53,18 +78,27 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
-    public WebBookmark updateBookmark(String id, String title, String url, String description) {
-        return updateBookmark(id, title, url, description, null);
-    }
+    // UPDATED: Update a VideoBookmark with username verification
+    public VideoBookmark updateVideoBookmark(String id, String title, String url, String description, String videoUrl, int duration, String username) {
+        System.out.println("Looking for video bookmark to update with ID: " + id);
 
-    // Update a VideoBookmark's fields; validate type before casting
-    public VideoBookmark updateVideoBookmark(String id, String title, String url, String description, String videoUrl, int duration) {
-        WebBookmark wb = bookmarkRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Video Bookmark not found"));
-        if (!(wb instanceof VideoBookmark)) {
-            throw new IllegalArgumentException("Bookmark is not a VideoBookmark");
+        // Get all bookmarks for this user
+        List<WebBookmark> userBookmarks = bookmarkRepository.findByUsername(username);
+        System.out.println("User " + username + " has " + userBookmarks.size() + " bookmarks");
+
+        // Find the video bookmark in the user's list
+        VideoBookmark bookmark = null;
+        for (WebBookmark b : userBookmarks) {
+            if (id.equals(b.getId()) && b instanceof VideoBookmark) {
+                bookmark = (VideoBookmark) b;
+                break;
+            }
         }
-        VideoBookmark bookmark = (VideoBookmark) wb;
+
+        if (bookmark == null) {
+            throw new IllegalArgumentException("Video Bookmark not found with id: " + id);
+        }
+
         bookmark.setTitle(title);
         bookmark.setUrl(url);
         bookmark.setDescription(description);
@@ -73,7 +107,30 @@ public class BookmarkService {
         return bookmarkRepository.save(bookmark);
     }
 
-    public void deleteBookmark(String id) {
-        bookmarkRepository.deleteById(id);
+    // UPDATED: Add username verification for delete
+    public void deleteBookmark(String id, String username) {
+        System.out.println("Looking for bookmark with ID: " + id);
+
+        // Get all bookmarks for this user
+        List<WebBookmark> userBookmarks = bookmarkRepository.findByUsername(username);
+        System.out.println("User " + username + " has " + userBookmarks.size() + " bookmarks");
+
+        // Find the bookmark in the user's list
+        WebBookmark bookmarkToDelete = null;
+        for (WebBookmark b : userBookmarks) {
+            System.out.println("  - Bookmark ID: " + b.getId() + ", Title: " + b.getTitle());
+            if (id.equals(b.getId())) {
+                bookmarkToDelete = b;
+                break;
+            }
+        }
+
+        if (bookmarkToDelete == null) {
+            throw new IllegalArgumentException("Bookmark not found with id: " + id);
+        }
+
+        System.out.println("Deleting bookmark: " + bookmarkToDelete.getTitle());
+        bookmarkRepository.delete(bookmarkToDelete);
+        System.out.println("Bookmark deleted successfully");
     }
 }
