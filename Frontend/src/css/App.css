@@ -16,7 +16,7 @@
 /* Cards grid: left-to-right, then top-to-bottom flow, responsive */
 .cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   grid-auto-flow: row;
   gap: var(--space-md);
   align-items: start;
@@ -109,8 +109,8 @@
 /* Video Bookmarks Grid (Custom) */
 .video-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 24px;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
   padding: 16px 0;
 }
 
