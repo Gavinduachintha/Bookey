@@ -155,11 +155,11 @@ function App() {
            <h1>Bookey - Bookmark Manager</h1>
            <div className="header-user-section">
              {currentUser && (
-                 <div className="user-info">
+                 <div className="user-info"><div className="user-avatar">
+                   {currentUser.charAt(0).toUpperCase()}
+                 </div>
                    <span className="login-label">Logged in as:</span>
-                   <div className="user-avatar">
-                     {currentUser.charAt(0).toUpperCase()}
-                   </div>
+
                    <span className="username-display">{currentUser}</span>
                  </div>
              )}
@@ -239,12 +239,14 @@ function App() {
 
           <div className="actions-container">
             <button className="glass-button" onClick={()=>setShowForm(true)}>
-                <Bookmark size={18} />
-                <span>Add Bookmark</span>
+              <span>Add</span>
+              <Bookmark size={18} />
+
             </button>
             <button className="glass-button" onClick={()=>setShowVideoForm(true)}>
+              <span>Add</span>
                 <Video size={18} />
-                <span>Add Video Bookmark</span>
+
             </button>
           </div>
 

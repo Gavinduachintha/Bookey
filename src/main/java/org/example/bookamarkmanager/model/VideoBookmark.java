@@ -1,8 +1,16 @@
 package org.example.bookamarkmanager.model;
 
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document(collection = "bookmarks")
 public class VideoBookmark extends WebBookmark {
     private String videoUrl;
     private int duration;
+
+    // Default constructor required for MongoDB deserialization
+    public VideoBookmark() {
+        super();
+    }
 
     public VideoBookmark(String title, String url, String description, String videoUrl, int duration) {
         super(title, url, description);

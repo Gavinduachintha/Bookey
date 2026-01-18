@@ -1,10 +1,11 @@
 .video-bookmark {
-    width: 280px;
-    min-height: 150px;
+    width: 320px;
+    /*gap:50px;*/
+    /*min-height: 150px;*/
     display: flex;
     flex-direction: column;
-    border-radius: var(--radius-lg);
-    background: linear-gradient(160deg, rgba(2,6,23,0.9), var(--bg-elevated));
+    border-radius: var(--radius-md);
+    background: var(--bg-base);
     border: 1px solid var(--border);
     overflow: hidden;
     cursor: pointer;
@@ -12,13 +13,12 @@
     box-shadow: var(--shadow-sm);
     color: var(--text-primary);
     padding-bottom: 5px;
-    padding-right: 5px;
 }
 
 .video-bookmark:hover, .video-bookmark:focus-within {
     transform: translateY(-6px);
-    border-color: var(--accent-blue-2);
-    box-shadow: 0 18px 42px rgba(2,6,23,0.6);
+    border-color: var(--accent-primary);
+    box-shadow: var(--shadow-lg); height;
 }
 
 /* Thumbnail */
@@ -27,52 +27,54 @@
     width: 100%;
     height: 160px;
     overflow: hidden;
-    background: #000;
+    background: var(--bg-muted);
 }
 
 .bookmark-thumbnail {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.45s var(--transition);
+    transition: transform 0.3s var(--transition);
 }
 
-.video-bookmark:hover .bookmark-thumbnail { transform: scale(1.06); }
+.video-bookmark:hover .bookmark-thumbnail {
+    transform: scale(1.05);
+}
 
 /* Time Badge on Thumbnail */
 .thumbnail-time {
     position: absolute;
     bottom: 10px;
     right: 10px;
-    background: rgba(0, 0, 0, 0.6);
-    color: var(--text-primary);
+    background: var(--accent-primary);
+    color: white;
     font-size: 12px;
     font-weight: 600;
-    padding: 4px 8px;
+    padding: 4px 10px;
     border-radius: 6px;
 }
 
 /* Content */
 .bookmark-content {
     flex: 1;
-    padding: 14px 16px;
+    padding: 16px;
     display: flex;
     flex-direction: column;
     gap: 8px;
 }
 
 .bookmark-title {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 600;
     color: var(--text-primary);
-    line-height: 1.25;
+    line-height: 1.3;
     margin: 0;
 }
 
 .bookmark-description {
     font-size: 13px;
     color: var(--text-secondary);
-    line-height: 1.4;
+    line-height: 1.5;
     flex-grow: 1;
     overflow: hidden;
     display: -webkit-box;
@@ -82,9 +84,53 @@
 
 .bookmark-url {
     font-size: 12px;
-    color: var(--accent-blue-2);
+    color: var(--text-muted);
     word-break: break-all;
-    opacity: 0.95;
+}
+
+/* Card Actions for Video Bookmarks */
+.video-bookmark .card-actions {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+    padding: 0 16px 8px 16px;
+    border-top: none;
+}
+
+.video-bookmark .card-action-button {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border);
+    background: var(--bg-base);
+    color: var(--text-secondary);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all var(--transition-fast);
+}
+
+.video-bookmark .card-action-button:hover {
+    transform: scale(1.08);
+    border-color: var(--accent-primary);
+    background: var(--bg-muted);
+}
+
+.video-bookmark .visit-button:hover {
+    background: var(--accent-primary);
+    color: white;
+    border-color: var(--accent-primary);
+}
+
+.video-bookmark .delete-button {
+    color: var(--accent-red);
+}
+
+.video-bookmark .delete-button:hover {
+    background: var(--accent-red);
+    color: white;
+    border-color: var(--accent-red);
 }
 
 /* Mobile Friendly */

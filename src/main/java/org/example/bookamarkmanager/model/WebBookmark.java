@@ -1,12 +1,14 @@
-package org.example. bookamarkmanager.model;
+package org.example.bookamarkmanager.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 @Document(collection = "bookmarks")
 public class WebBookmark extends AbstractBookmark {
 
     @Id
+    @JsonProperty("id")
     private String id;
 
     private String description;

@@ -20,7 +20,15 @@ const VideoBookmark = ({
             <div className="bookmark-content">
                 <h3 className="bookmark-title">{title}</h3>
                 <p className="bookmark-description">{description}</p>
-                <span className="bookmark-url">{videoUrl || url}</span>
+                <a
+                    href={videoUrl || url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bookmark-url"
+                    onClick={(e) => e.stopPropagation()}
+                >
+                    {videoUrl || url}
+                </a>
             </div>
 
             {/* Actions: Open and Delete buttons */}

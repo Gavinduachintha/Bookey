@@ -1,17 +1,17 @@
 package org.example.bookamarkmanager.controller;
 
-import org. example.bookamarkmanager. model.WebBookmark;
+import org.example.bookamarkmanager.model.WebBookmark;
 import org.example.bookamarkmanager.model.VideoBookmark;
 import org.example.bookamarkmanager.service.BookmarkService;
-import org.springframework. http.ResponseEntity;
-import org. springframework.security.core.Authentication;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
 
 @RestController
-@CrossOrigin("http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 @RequestMapping("/api")
 public class BookmarkController {
 
@@ -36,7 +36,7 @@ public class BookmarkController {
                 bookmark.getTitle(),
                 bookmark.getUrl(),
                 bookmark.getDescription(),
-                bookmark. getTime(),
+                bookmark.getTime(),
                 username  // Pass the authenticated user
         );
     }
@@ -45,14 +45,14 @@ public class BookmarkController {
     @PutMapping("/bookmarks/{id}")
     public ResponseEntity<WebBookmark> updateBookmark(@PathVariable String id, @RequestBody WebBookmark bookmark, Authentication authentication) {
         try {
-            String username = authentication. getName();
-            WebBookmark updatedBookmark = bookmarkService. updateBookmark(
+            String username = authentication.getName();
+            WebBookmark updatedBookmark = bookmarkService.updateBookmark(
                     id,
                     bookmark.getTitle(),
                     bookmark.getUrl(),
                     bookmark.getDescription(),
                     bookmark.getTime(),
-                    username  // Pass the authenticated user
+                    username
             );
             return ResponseEntity.ok(updatedBookmark);
         } catch (SecurityException e) {
@@ -108,13 +108,22 @@ public class BookmarkController {
     // UPDATED: Delete with username verification
     @DeleteMapping("/bookmarks/{id}")
     public ResponseEntity<Void> deleteBookmark(@PathVariable String id, Authentication authentication) {
+        System.out.println("DELETE request received for bookmark ID: " + id);
         try {
-            String username = authentication. getName();
-            bookmarkService. deleteBookmark(id, username);
+            String username = authentication.getName();
+            System.out.println("Authenticated user: " + username);
+            bookmarkService.deleteBookmark(id, username);
+            System.out.println("Bookmark deleted successfully");
             return ResponseEntity.noContent().build();
         } catch (SecurityException e) {
-            return ResponseEntity.status(403).build(); // Forbidden
+            System.out.println("Security exception: " + e.getMessage());
+            return ResponseEntity.status(403).build();
         } catch (NoSuchElementException | IllegalArgumentException e) {
+            System.out.println("Not found exception: " + e.getMessage());
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            System.out.println("Unexpected exception: " + e.getClass().getName() + " - " + e.getMessage());
+            e.printStackTrace();
             return ResponseEntity.notFound().build();
         }
     }

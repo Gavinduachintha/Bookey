@@ -2,18 +2,15 @@
 
 /* App container */
 .app-container {
-  max-width: 70vw;
-  margin: 40px auto;
-  padding: 24px;
-  /*background: var(--bg-elevated);*/
-  /*border-radius: var(--radius-lg);*/
+  max-width: 80vw;
+  margin: 0 auto;
+  padding: 32px 24px;
   min-height: 100vh;
-  /*box-shadow: var(--shadow-sm);*/
-  /*border: 1px solid var(--border);*/
+  background: var(--bg-base);
 }
 
 .content {
-  margin-top: 12px;
+  margin-top: 48px;
 }
 
 /* Cards grid: left-to-right, then top-to-bottom flow, responsive */
@@ -34,77 +31,87 @@
   box-sizing: border-box;
 }
 
-/* Header styling */
+/* Header styling - Modern black and white with subtle border */
 .glass-header {
   position: sticky;
   top: 0;
   left: 0;
   width: 100%;
-  padding: 16px 32px;
+  padding: 10px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  /*border-bottom: 1px solid var(--border);*/
   z-index: 1000;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-sm);
   box-sizing: border-box;
 }
 
 .glass-header h1 {
   margin: 0;
-  font-size: 1.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
   color: var(--text-primary);
+  letter-spacing: -0.5px;
 }
 
-/* Original header class adjustment or removal.
-   The .header class was used for section headers too within content.
-   We keep it for section headers but remove the top main header usage.
-*/
+/* Section headers */
 .header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 18px 0;
+  padding: 0 0 16px 0;
+  color: var(--text-primary);
+  border-bottom: 2px solid var(--accent-primary);
+  margin-bottom: 24px;
+}
+
+.header h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
   color: var(--text-primary);
 }
 
+/* Expand/Collapse button */
 .expand-container {
   display: flex;
   justify-content: center;
-  margin-top: 24px;
+  margin-top: 32px;
   width: 100%;
 }
 
 .expand-button {
-  background: var(--bg-elevated); /* Assuming this variable exists, based on previous CSS */
-  border: 1px solid #ddd;
-  padding: 10px 24px;
+  background: var(--bg-base);
+  border: 2px solid var(--accent-primary);
+  padding: 12px 32px;
   border-radius: 999px;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition);
   font-weight: 600;
-  color: var(--text-primary);
+  color: var(--accent-primary);
   display: flex;
   align-items: center;
   gap: 8px;
+  font-size: 14px;
 }
 
 .expand-button:hover {
-  background: #f0f0f0;
+  background: var(--accent-primary);
+  color: white;
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
 }
 
 /* Video Bookmarks Grid (Custom) */
 .video-cards-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 280px);
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   padding: 16px 0;
-  justify-content: center;
 }
 
 /* Mobile */
@@ -116,101 +123,113 @@
   .app-container {
     margin: 16px auto;
     padding: 12px;
+    max-width: 95vw;
+  }
+
+  .glass-header {
+    padding: 16px 20px;
+  }
+
+  .glass-header h1 {
+    font-size: 1.25rem;
   }
 }
 
-
+/* Logout button - Black theme */
 .logout-button {
-  padding: 8px 16px;
-  background: var(--accent-red);
+  padding: 10px 20px;
+  background: var(--accent-primary);
   color: white;
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
   font-size: 14px;
-  transition: background var(--transition-fast);
+  font-weight: 500;
+  transition: all var(--transition-fast);
 }
 
 .logout-button:hover {
-  background: #dc2626;
+  background: var(--accent-hover);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-sm);
 }
 
 /* User Header Section */
 .header-user-section {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 20px;
 }
 
 .user-info {
   display: flex;
   align-items: center;
-  gap: 8px;
-  /*background: rgba(255, 255, 255, 0.15);*/
-  padding: 4px 12px 4px 4px; /* padding-left is less because avatar is round */
-  /*border-radius: 999px;*/
-  /*border: 1px solid rgba(255, 255, 255, 0.2);*/
+  gap: 10px;
+  padding: 6px 16px 6px 6px;
+  border-radius: 999px;
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
 }
 
 .user-avatar {
-  width: 32px;
-  height: 32px;
+  width: 36px;
+  height: 36px;
   border-radius: 50%;
-  background: var(--accent-blue);
+  background: var(--accent-primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: bold;
+  font-weight: 600;
   font-size: 16px;
   text-transform: uppercase;
 }
 
 .username-display {
   color: var(--text-primary);
-  font-weight: 500;
+  font-weight: 600;
   font-size: 14px;
 }
 
 .login-label {
   color: var(--text-secondary);
   font-size: 12px;
-  margin-left: 8px;
+  margin-left: 4px;
 }
 
-/* Floating Actions */
+/* Floating Actions - Modern black buttons */
 .actions-container {
   position: fixed;
   bottom: 32px;
   right: 32px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 12px;
   z-index: 100;
 }
 
 .glass-button {
-  background: rgba(255, 255, 255, 0.1);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  color: var(--text-primary);
-  padding: 12px 24px;
+  background: var(--accent-primary);
+  border: none;
+  color: white;
+  padding: 14px 28px;
   border-radius: 999px;
   cursor: pointer;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-  text-align: center;
-  font-size: 0.9rem;
+  font-weight: 600;
+  font-size: 14px;
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 8px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-md);
 }
 
 .glass-button:hover {
-  background: rgba(255, 255, 255, 0.2);
-  transform: translateY(-4px);
-  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.4);
-  border-color: rgba(255, 255, 255, 0.4);
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-lg);
+}
+
+.glass-button:active {
+  transform: translateY(0);
 }
